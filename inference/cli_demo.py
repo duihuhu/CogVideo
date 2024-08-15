@@ -80,11 +80,10 @@ def generate_video(
     import time
     
     atten_cache = {}
-    atten_cache[-1] = {}
 
     for i in range(30):
-        atten_cache[-1][i] = {}
-        atten_cache[-1][i]['atten_cache'] = -1
+        atten_cache[i] = {}
+        atten_cache[i]['atten_cache'] = -1
     # Generate the video frames using the pipeline
     video = pipe(
         num_inference_steps=num_inference_steps,  # Number of inference steps
