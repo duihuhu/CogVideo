@@ -77,14 +77,23 @@ def generate_video(
         device=device,  # Device to use for computation
         dtype=dtype,  # Data type for computation
     )
+    import time
+    
+    atten_cache = {}
+    atten_cache[-1] = {}
 
+    for i in range(30):
+        atten_cache[-1][i] = {}
+        atten_cache[-1][i]['atten_cache'] = -1
     # Generate the video frames using the pipeline
     video = pipe(
         num_inference_steps=num_inference_steps,  # Number of inference steps
         guidance_scale=guidance_scale,  # Guidance scale for classifier-free guidance
         prompt_embeds=prompt_embeds,  # Encoded prompt embeddings
         negative_prompt_embeds=torch.zeros_like(prompt_embeds),  # Not Supported negative prompt
+        atten_cache = atten_cache
     ).frames[0]
+    t2 = time.time()
 
     # Export the generated frames to a video file. fps must be 8
     export_to_video_imageio(video, output_path, fps=8)
