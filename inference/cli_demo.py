@@ -79,18 +79,13 @@ def generate_video(
     )
     import time
     
-    atten_cache = {}
 
-    for i in range(30):
-        atten_cache[i] = {}
-        atten_cache[i]['atten_cache'] = -1
     # Generate the video frames using the pipeline
     video = pipe(
         num_inference_steps=num_inference_steps,  # Number of inference steps
         guidance_scale=guidance_scale,  # Guidance scale for classifier-free guidance
         prompt_embeds=prompt_embeds,  # Encoded prompt embeddings
         negative_prompt_embeds=torch.zeros_like(prompt_embeds),  # Not Supported negative prompt
-        atten_cache = atten_cache
     ).frames[0]
     t2 = time.time()
 
