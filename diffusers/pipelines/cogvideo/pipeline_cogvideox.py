@@ -614,6 +614,8 @@ class CogVideoXPipeline(DiffusionPipeline):
 
         with self.progress_bar(total=num_inference_steps) as progress_bar:
             # for DPM-solver++
+            import time
+            t1 = time.time()
             old_pred_original_sample = None
             for i, t in enumerate(timesteps):
                 if self.interrupt:
@@ -668,7 +670,8 @@ class CogVideoXPipeline(DiffusionPipeline):
                     latents = callback_outputs.pop("latents", latents)
                     prompt_embeds = callback_outputs.pop("prompt_embeds", prompt_embeds)
                     negative_prompt_embeds = callback_outputs.pop("negative_prompt_embeds", negative_prompt_embeds)
-
+            t2 = time.time()
+            print("step time ", t2-t1)
                 if i == len(timesteps) - 1 or ((i + 1) > num_warmup_steps and (i + 1) % self.scheduler.order == 0):
                     progress_bar.update()
 
