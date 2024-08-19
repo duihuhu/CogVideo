@@ -608,13 +608,13 @@ class CogVideoXPipeline(DiffusionPipeline):
 
         # 6. Prepare extra step kwargs. TODO: Logic should ideally just be moved out of the pipeline
         extra_step_kwargs = self.prepare_extra_step_kwargs(generator, eta)
+        import time
 
         # 7. Denoising loop
         num_warmup_steps = max(len(timesteps) - num_inference_steps * self.scheduler.order, 0)
-
+        start_time = time.time()
         with self.progress_bar(total=num_inference_steps) as progress_bar:
             # for DPM-solver++
-            import time
             t1 = time.time()
             old_pred_original_sample = None
             for i, t in enumerate(timesteps):
@@ -685,5 +685,6 @@ class CogVideoXPipeline(DiffusionPipeline):
 
         if not return_dict:
             return (video,)
-
+        end_time = time.time()
+        print("execute time ", end_time-start_time)
         return CogVideoXPipelineOutput(frames=video)
