@@ -129,12 +129,12 @@ if __name__ == "__main__":
         assert args.video_path, "Video path must be provided for encoding."
         encoded_output = encode_video(args.model_path, args.video_path, dtype, device)
         torch.save(encoded_output, args.output_path + "/encoded.pt")
-        print(f"Finished encoding the video to a tensor, save it to a file at {encoded_output}/encoded.pt")
+        # print(f"Finished encoding the video to a tensor, save it to a file at {encoded_output}/encoded.pt")
     elif args.mode == "decode":
         assert args.encoded_path, "Encoded tensor path must be provided for decoding."
         decoded_output = decode_video(args.model_path, args.encoded_path, dtype, device)
         save_video(decoded_output, args.output_path)
-        print(f"Finished decoding the video and saved it to a file at {args.output_path}/output.mp4")
+        # print(f"Finished decoding the video and saved it to a file at {args.output_path}/output.mp4")
     elif args.mode == "both":
         assert args.video_path, "Video path must be provided for encoding."
         encoded_output = encode_video(args.model_path, args.video_path, dtype, device)
