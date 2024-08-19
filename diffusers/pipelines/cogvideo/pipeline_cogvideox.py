@@ -670,11 +670,10 @@ class CogVideoXPipeline(DiffusionPipeline):
                     latents = callback_outputs.pop("latents", latents)
                     prompt_embeds = callback_outputs.pop("prompt_embeds", prompt_embeds)
                     negative_prompt_embeds = callback_outputs.pop("negative_prompt_embeds", negative_prompt_embeds)
-            t2 = time.time()
-            print("step time ", t2-t1)
                 if i == len(timesteps) - 1 or ((i + 1) > num_warmup_steps and (i + 1) % self.scheduler.order == 0):
                     progress_bar.update()
-
+            t2 = time.time()
+            print("step time ", t2-t1)
         if not output_type == "latent":
             video = self.decode_latents(latents, num_frames // fps)
             video = self.video_processor.postprocess_video(video=video, output_type=output_type)
