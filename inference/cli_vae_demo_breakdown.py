@@ -72,6 +72,7 @@ def decode_video(model_path, encoded_tensor_path, dtype, device):
     """
     model = AutoencoderKLCogVideoX.from_pretrained(model_path, torch_dtype=dtype).to(device)
     encoded_frames = torch.load(encoded_tensor_path, weights_only=True).to(device).to(dtype)
+    torch.cuda.synchronize() 
     t1 = time.time()
     with torch.no_grad():
         decoded_frames = []
