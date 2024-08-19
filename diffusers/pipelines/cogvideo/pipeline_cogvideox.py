@@ -612,10 +612,8 @@ class CogVideoXPipeline(DiffusionPipeline):
 
         # 7. Denoising loop
         num_warmup_steps = max(len(timesteps) - num_inference_steps * self.scheduler.order, 0)
-        start_time = time.time()
         with self.progress_bar(total=num_inference_steps) as progress_bar:
             # for DPM-solver++
-            t1 = time.time()
             old_pred_original_sample = None
             for i, t in enumerate(timesteps):
                 if self.interrupt:
@@ -672,8 +670,6 @@ class CogVideoXPipeline(DiffusionPipeline):
                     negative_prompt_embeds = callback_outputs.pop("negative_prompt_embeds", negative_prompt_embeds)
                 if i == len(timesteps) - 1 or ((i + 1) > num_warmup_steps and (i + 1) % self.scheduler.order == 0):
                     progress_bar.update()
-            t2 = time.time()
-            print("step time ", t2-t1)
         if not output_type == "latent":
             video = self.decode_latents(latents, num_frames // fps)
             video = self.video_processor.postprocess_video(video=video, output_type=output_type)
@@ -685,6 +681,4 @@ class CogVideoXPipeline(DiffusionPipeline):
 
         if not return_dict:
             return (video,)
-        end_time = time.time()
-        print("execute time ", end_time-start_time)
         return CogVideoXPipelineOutput(frames=video)
