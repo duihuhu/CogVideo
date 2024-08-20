@@ -102,6 +102,7 @@ def generate_video(
     # Export the generated frames to a video file. fps must be 8
     export_to_video_imageio(video, output_path, fps=8)
     t3 = time.time()
+    print("cogvideo time ", t3-t2, t2-t1)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a video from a text prompt using CogVideoX")
