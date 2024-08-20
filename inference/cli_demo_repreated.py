@@ -88,6 +88,8 @@ def generate_video(
         guidance_scale=guidance_scale,  # Guidance scale for classifier-free guidance
         prompt_embeds=prompt_embeds,  # Encoded prompt embeddings
         negative_prompt_embeds=torch.zeros_like(prompt_embeds),  # Not Supported negative prompt
+        height=height,
+        width=width,
     ).frames[0]
     torch.cuda.synchronize()
     t1 = time.time()
