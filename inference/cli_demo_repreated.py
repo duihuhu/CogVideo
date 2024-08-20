@@ -87,19 +87,21 @@ def generate_video(
         prompt_embeds=prompt_embeds,  # Encoded prompt embeddings
         negative_prompt_embeds=torch.zeros_like(prompt_embeds),  # Not Supported negative prompt
     ).frames[0]
-    
-        # Generate the video frames using the pipeline
+    torch.cuda.synchronize()
+    t1 = time.time()
+    # Generate the video frames using the pipeline
     video = pipe(
         num_inference_steps=num_inference_steps,  # Number of inference steps
         guidance_scale=guidance_scale,  # Guidance scale for classifier-free guidance
         prompt_embeds=prompt_embeds,  # Encoded prompt embeddings
         negative_prompt_embeds=torch.zeros_like(prompt_embeds),  # Not Supported negative prompt
     ).frames[0]
+    torch.cuda.synchronize()
     t2 = time.time()
 
     # Export the generated frames to a video file. fps must be 8
     export_to_video_imageio(video, output_path, fps=8)
-
+    t3 = time.time()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a video from a text prompt using CogVideoX")

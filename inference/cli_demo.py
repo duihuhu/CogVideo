@@ -87,7 +87,6 @@ def generate_video(
         prompt_embeds=prompt_embeds,  # Encoded prompt embeddings
         negative_prompt_embeds=torch.zeros_like(prompt_embeds),  # Not Supported negative prompt
     ).frames[0]
-    t2 = time.time()
 
     # Export the generated frames to a video file. fps must be 8
     export_to_video_imageio(video, output_path, fps=8)
