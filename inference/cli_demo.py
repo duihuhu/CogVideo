@@ -46,6 +46,8 @@ def generate_video(
     num_videos_per_prompt: int = 1,
     device: str = "cuda",
     dtype: torch.dtype = torch.float16,
+    height: int = 480,
+    width: int = 720,
 ):
     """
     Generates a video based on the given prompt and saves it to the specified path.
@@ -86,6 +88,8 @@ def generate_video(
         guidance_scale=guidance_scale,  # Guidance scale for classifier-free guidance
         prompt_embeds=prompt_embeds,  # Encoded prompt embeddings
         negative_prompt_embeds=torch.zeros_like(prompt_embeds),  # Not Supported negative prompt
+        height=height,
+        width=width,
     ).frames[0]
 
     # Export the generated frames to a video file. fps must be 8
@@ -129,4 +133,6 @@ if __name__ == "__main__":
         num_videos_per_prompt=args.num_videos_per_prompt,
         device=args.device,
         dtype=dtype,
+        height=height,
+        width=width,
     )
