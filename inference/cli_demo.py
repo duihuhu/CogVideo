@@ -135,6 +135,6 @@ if __name__ == "__main__":
         num_videos_per_prompt=args.num_videos_per_prompt,
         device=args.device,
         dtype=dtype,
-        height=height,
-        width=width,
+        height=args.height,
+        width=args.width,
     )
