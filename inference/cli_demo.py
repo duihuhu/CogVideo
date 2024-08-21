@@ -117,6 +117,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dtype", type=str, default="float16", help="The data type for computation (e.g., 'float16' or 'float32')"
     )
+    parser.add_argument("--height", type=int, default=480, help="height")
+    parser.add_argument("--width", type=int, default=720, help="width")
 
     args = parser.parse_args()
 
