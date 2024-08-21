@@ -92,6 +92,8 @@ def generate_video(
         width=width,
     ).frames[0]
     torch.cuda.synchronize()
+    print("warning up end ")
+    time.sleep(3)
     t1 = time.time()
     # Generate the video frames using the pipeline
     video = pipe(

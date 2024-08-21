@@ -78,9 +78,7 @@ def generate_video(
         max_sequence_length=226,  # Maximum length of the sequence, must be 226
         device=device,  # Device to use for computation
         dtype=dtype,  # Data type for computation
-    )
-    import time
-    
+    )    
 
     # Generate the video frames using the pipeline
     video = pipe(
