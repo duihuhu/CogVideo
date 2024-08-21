@@ -614,6 +614,7 @@ class CogVideoXPipeline(DiffusionPipeline):
         num_warmup_steps = max(len(timesteps) - num_inference_steps * self.scheduler.order, 0)
         with self.progress_bar(total=num_inference_steps) as progress_bar:
             # for DPM-solver++
+            print("timesteps ", timesteps)
             old_pred_original_sample = None
             for i, t in enumerate(timesteps):
                 if self.interrupt:
