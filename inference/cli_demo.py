@@ -71,7 +71,7 @@ def generate_video(
 
     # Encode the prompt to get the prompt embeddings
     prompt_embeds, _ = pipe.encode_prompt(
-        prompt=prompt,  # The textual description for video generation
+        prompt=["A girl ridding a bike.", "blue sky"],  # The textual description for video generation
         negative_prompt=None,  # The negative prompt to guide the video generation
         do_classifier_free_guidance=True,  # Whether to use classifier-free guidance
         num_videos_per_prompt=num_videos_per_prompt,  # Number of videos to generate per prompt
