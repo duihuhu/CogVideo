@@ -339,7 +339,7 @@ class CogVideoXPipeline(DiffusionPipeline):
         frames = []
         for i in range(num_seconds):
             start_frame, end_frame = (0, 3) if i == 0 else (2 * i + 1, 2 * i + 3)
-
+            print("start_frame, end_frame ", start_frame, end_frame)
             current_frames = self.vae.decode(latents[:, :, start_frame:end_frame]).sample
             frames.append(current_frames)
 
@@ -614,12 +614,11 @@ class CogVideoXPipeline(DiffusionPipeline):
         num_warmup_steps = max(len(timesteps) - num_inference_steps * self.scheduler.order, 0)
         with self.progress_bar(total=num_inference_steps) as progress_bar:
             # for DPM-solver++
-            print("timesteps ", timesteps)
             old_pred_original_sample = None
             for i, t in enumerate(timesteps):
                 if self.interrupt:
                     continue
-
+                
                 latent_model_input = torch.cat([latents] * 2) if do_classifier_free_guidance else latents
                 latent_model_input = self.scheduler.scale_model_input(latent_model_input, t)
 
