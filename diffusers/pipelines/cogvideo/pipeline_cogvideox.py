@@ -593,6 +593,7 @@ class CogVideoXPipeline(DiffusionPipeline):
 
         # 5. Prepare latents.
         latent_channels = self.transformer.config.in_channels
+        print("latent_channels ", latent_channels)
         num_frames += 1
         latents = self.prepare_latents(
             batch_size * num_videos_per_prompt,
